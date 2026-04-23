@@ -1,17 +1,55 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include "config.h"
+#include "server.c"
 
+//Must be odd
 #define BOARD_WIDTH 15
 #define BOARD_HEIGHT 13
-#define WALLS_COUNT 55
 
-// Tiles: 
-// 0-empty, 
-// 1-unbreakable wall, 
-// 2-breakable wall, ...
+#define WALLS_COUNT 50
 
-void create_board(int game_board[BOARD_HEIGHT][BOARD_WIDTH]) {
+void game_init() {
+    //TODO
+}
+
+void handle_input() {
+    //TODO
+}
+
+void send_server_input() {
+    //TODO
+}
+
+void receive_gamestate() {
+    //TODO
+}
+
+void render() {
+    //TODO
+}
+
+void close_game() {
+    //TODO
+}
+
+void gameloop() {
+    //Vajag šo?
+}
+
+/* Tiles: 
+. = empty, 
+H = unbreakable wall, 
+S = breakable wall,
+1..8 = players,
+B = bomb,
+A = speed up,
+R = bomb radius up,
+T = bomb time up
+*/
+
+void fill_board(char game_board[BOARD_HEIGHT][BOARD_WIDTH]) {
     int walls = 0;
 
     for (int a = 0; a < BOARD_HEIGHT; a++) {
@@ -20,7 +58,8 @@ void create_board(int game_board[BOARD_HEIGHT][BOARD_WIDTH]) {
             if (a == 0 || a == BOARD_HEIGHT - 1 || 
                 b == 0 || b == BOARD_WIDTH - 1 || 
                 (a % 2 == 0 && b % 2 == 0))
-                game_board[a][b] = 1;
+                game_board[a][b] = 'H';
+            else game_board[a][b] = '.';
         }
     }
 
@@ -37,8 +76,8 @@ void create_board(int game_board[BOARD_HEIGHT][BOARD_WIDTH]) {
         }
 
         // Fill breakable walls
-        if (game_board[a][b] == 0) {
-            game_board[a][b] = 2;
+        if (game_board[a][b] == '.' || game_board[a][b] == 0) {
+            game_board[a][b] = 'S';
             walls++;
         }
 
@@ -49,12 +88,13 @@ int main() {
     //Seeds random number generator
     srand(time(NULL));
 
-    int game_board[BOARD_HEIGHT][BOARD_WIDTH] = {0};
-    create_board(game_board);
+    char game_board[BOARD_HEIGHT][BOARD_WIDTH];
+    fill_board(game_board);
 
+    //print board
     for (int a = 0; a < BOARD_HEIGHT; a++) {
         for (int b = 0; b < BOARD_WIDTH; b++) {
-            printf("%d ", game_board[a][b]);
+            printf("%c ", game_board[a][b]);
         }
         printf("\n");
     }
