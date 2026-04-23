@@ -3,7 +3,7 @@
 
 #define MAX_PLAYERS 8
 #define TICKS_PER_SECOND 20
-#define MAX_NAME_LEN 15
+#define MAX_NAME_LEN 30
 
 typedef enum {
     GAME_LOBBY = 0,
@@ -48,9 +48,16 @@ typedef enum {
     MSG_BLOCK_DESTROYED = 47
 } msg_type_t;
 
+typedef struct {
+	uint8_t msg_type;
+	uint8_t sender_id;
+	uint8_t target_id; // 255=server. 254=broadcast.
+} msg_generic_t;
+
 
 typedef struct {
     uint8_t id;
+    uint8_t lives;
     char name[MAX_NAME_LEN + 1];
     uint16_t row;
     uint16_t col;
@@ -64,7 +71,6 @@ typedef struct {
 } player_t;
 
 typedef struct {
-    bool active;
     uint8_t owner_id;
     uint16_t row;
     uint16_t col;
