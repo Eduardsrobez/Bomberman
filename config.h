@@ -52,6 +52,7 @@ typedef struct {
 	uint8_t msg_type;
 	uint8_t sender_id;
 	uint8_t target_id; // 255=server. 254=broadcast.
+    // payload
 } msg_generic_t;
 
 
