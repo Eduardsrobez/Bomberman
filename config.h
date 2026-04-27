@@ -55,6 +55,11 @@ typedef struct {
     // payload
 } msg_generic_t;
 
+typedef struct {
+    char identifier[20];
+    char name[30];
+} hello_payload_t;
+
 
 typedef struct {
     uint8_t id;
@@ -79,7 +84,6 @@ typedef struct {
     uint16_t timer_ticks;
 } bomb_t;
 
-// No clue ko dara ši funkcija
 static inline uint16_t make_cell_index(uint16_t row, uint16_t col, uint16_t cols) {
     return row * cols + col;
 }

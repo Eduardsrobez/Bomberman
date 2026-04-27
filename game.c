@@ -507,10 +507,6 @@ void close_game() {
     exit(0);
 }
 
-void gameloop() {
-    //Vajag šo?
-}
-
 int main(int argc, char **argv)
 {
     glutInit(&argc, argv);
