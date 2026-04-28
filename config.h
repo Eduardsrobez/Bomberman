@@ -45,21 +45,16 @@ typedef enum {
     MSG_DEATH = 44,
     MSG_BONUS_AVAILABLE = 45,
     MSG_BONUS_RETRIEVED = 46,
-    MSG_BLOCK_DESTROYED = 47
+    MSG_BLOCK_DESTROYED = 47,
+    MSG_SYNC_BOARD = 100,
+    MSG_SYNC_REQUEST = 101
 } msg_type_t;
 
 typedef struct {
-	uint8_t msg_type;
-	uint8_t sender_id;
-	uint8_t target_id; // 255=server. 254=broadcast.
-    // payload
+    uint8_t msg_type;
+    uint8_t sender_id;
+    uint8_t target_id;
 } msg_generic_t;
-
-typedef struct {
-    char identifier[20];
-    char name[30];
-} hello_payload_t;
-
 
 typedef struct {
     uint8_t id;
@@ -69,7 +64,6 @@ typedef struct {
     uint16_t col;
     bool alive;
     bool ready;
-
     uint8_t bomb_count;
     uint8_t bomb_radius;
     uint16_t bomb_timer_ticks;
@@ -85,5 +79,12 @@ typedef struct {
 } bomb_t;
 
 static inline uint16_t make_cell_index(uint16_t row, uint16_t col, uint16_t cols) {
-    return row * cols + col;
+    return (uint16_t)(row * cols + col);
 }
+
+static inline void split_cell_index(uint16_t index, uint16_t cols, uint16_t *row, uint16_t *col) {
+    *row = (uint16_t)(index / cols);
+    *col = (uint16_t)(index % cols);
+}
+
+
